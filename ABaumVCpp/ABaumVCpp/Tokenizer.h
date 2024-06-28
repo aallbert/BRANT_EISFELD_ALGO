@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 #include "Num.h"
 #include "Bracket.h"
@@ -87,8 +88,11 @@ public:
 			int numToAdd = 0;
 			int power = 0;
 			std::reverse(numBuffer.begin(), numBuffer.end());
+			//pow doesn't work somehow
 			for (int num : numBuffer) {
-				numToAdd += num * pow(10, power);	
+				int exp = 1;
+				for (int i = 0; i <= power; i++) exp * 10;
+				numToAdd += num * exp;	
 				power++;
 			}
 			std::cout << numToAdd << std::endl;
