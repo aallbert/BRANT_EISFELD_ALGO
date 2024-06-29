@@ -23,7 +23,7 @@ public:
     
     vector<Token*>* tokenize() 
 	{
-        vector<Token*>* tokens;
+        vector<Token*>* tokens = new vector<Token*>();
 	    vector<Token*>::iterator i = tokens->begin();
 
 		/*
@@ -40,7 +40,8 @@ public:
 		std::vector<int> numBuffer;
 
 		bool numMode = 0;
-		for (char ele : src) {
+		for (int k = 0; k < src.length(); k++) {
+			char ele = src[k];
 			std::cout << ele << std::endl;
 			if (contains(nums, ele)) 
 			{
@@ -51,22 +52,38 @@ public:
 			{
 				if (numMode == 1) 
 				{
-					Num n = addNewNum(numBuffer);
+					Num* n = new Num(getComposedInt(numBuffer));
 					numMode = -1;
-					tokens->push_back(&n);
+					numBuffer.clear();
+					i = tokens->insert(i, n);
+					++i;
 				}
-				Op o = Op(ele);
-				tokens->push_back(&o);
-
+				Op* o = new Op(ele);
+				i = tokens->insert(i, o);
+				++i;
 			}
 			else if (ele == '(' || ele == ')') 
 			{
-				Bracket b = Bracket(ele);
-				tokens->push_back(&b);
+				if (numMode == 1) 
+				{
+					Num* n = new Num(getComposedInt(numBuffer));
+					numMode = -1;
+					numBuffer.clear();
+					i = tokens->insert(i, n);
+					++i;
+				}
+
+				Bracket* b = new Bracket(ele);
+				i = tokens->insert(i, b);
+				++i;
+			}
+			else 
+			{
+				std::cout << "not relevant" << std::endl;
 			}
 		}
 
-        cout << "Die Methode Tokenizer.tokenize ist noch nicht implementiert!" << endl; // remove this line
+        // cout << "Die Methode Tokenizer.tokenize ist noch nicht implementiert!" << endl; // remove this line
         // tokens->add(new Num()); // remove this line
 
         return tokens;
@@ -83,7 +100,7 @@ public:
 			return std::find(std::begin(listLike), std::end(listLike), ele) != std::end(listLike); 
 		}
 
-		Num addNewNum(std::vector<int> numBuffer) {
+		int getComposedInt(std::vector<int> numBuffer) {
 			int numToAdd = 0;
 			int power = 0;
 			std::reverse(numBuffer.begin(), numBuffer.end());
@@ -91,9 +108,7 @@ public:
 				numToAdd += num * pow(10, power);	
 				power++;
 			}
-			std::cout << numToAdd << std::endl;
-			Num newNum = Num(numToAdd);
-			return newNum;
+			return numToAdd;
 		}
 		
 };

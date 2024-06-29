@@ -20,7 +20,7 @@ class Evaluator
 public:
 	/*
      * Wertet einen arithmetischen Ausdruck aus. Dazu wird der Ausdruck erst in Tokens zerlegt.
-     * Diese werden dann in einen arithmetischen Binärbaum umgewandelt, der dann ausgewertet und 
+     * Diese werden dann in einen arithmetischen Binï¿½rbaum umgewandelt, der dann ausgewertet und 
 	 * grafisch dargestellt werden kann.
      *
      * Parameter: exp der arithmetische Ausdruck
@@ -31,8 +31,12 @@ public:
 
         // String in Tokens zerlegen
         Tokenizer *t = new Tokenizer(exp);
-
-        // Aus den Tokens den arithmetischen Binärbaum aufbauen
+         std::cout << "Hallo" << std::endl;
+        std::vector<Token*>* tokens = t->tokenize();
+        for (Token* tok : *tokens) {
+            std::cout << tok->type << std::endl;
+        }
+        // Aus den Tokens den arithmetischen Binï¿½rbaum aufbauen
         Token *e = parse(t->tokenize(), mode);
 
         // Testbaum, falls Tokenizer und/oder Parser noch nicht fertig:
@@ -60,9 +64,9 @@ public:
         cout << "#Knoten: " << e->nodes() << endl;
         cout << "Tiefe:   " << e->depth() << endl;
 
-        // Grafische Darstellung des arithmetischen Binärbaums
-		Vis *v = new Vis(e, Vis::REGULAR); // Layout 1: gleiche Abstände zwischen Knoten
-        //Vis v = new Vis(e, Vis::BINARY); // Layout 2: binäre Unterteilung
+        // Grafische Darstellung des arithmetischen Binï¿½rbaums
+		Vis *v = new Vis(e, Vis::REGULAR); // Layout 1: gleiche Abstï¿½nde zwischen Knoten
+        //Vis v = new Vis(e, Vis::BINARY); // Layout 2: binï¿½re Unterteilung
         
 		// Text-/Grafikfenster sichtbar machen
 		// ...
@@ -76,7 +80,7 @@ private:
      *
      * Parameter: tok der tokenisierte arithmetische Ausdruck
      * Parameter: mode '<': Prefix, '|': Infix, '>': Postfix
-     * Return:: der arithmetische Binärbaum
+     * Return:: der arithmetische Binï¿½rbaum
      */
 	Token* parse(vector<Token*> *tok, char mode) 
 	{

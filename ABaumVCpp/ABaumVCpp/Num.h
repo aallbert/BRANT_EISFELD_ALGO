@@ -16,7 +16,9 @@ class Num : public Token
 public:
 
     Num() {} // DIESEN LEEREN STANDARDKONSTRUKTOR NICHT LOESCHEN
-	Num(int i) { /* cout << "Number added: " << i << endl; */ number = i;}
+	Num(int i) { /* cout << "Number added: " << i << endl; */ number = i;
+    type = *"n";
+    }
     
     int eval() 
 	{
