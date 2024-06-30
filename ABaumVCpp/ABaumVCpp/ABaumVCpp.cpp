@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 		// REINHOLD: '<' = Prefix, '|' = Infix (Standard), '>' = Postfix sind tatsächlich schwer (glaube ich)
 		// weil der Befehl "programm.exe >2+2" nicht den Baum mit 2+2 erzeugt, sondern programm.exe in eine neue Datei
 		// 2+2 schreiben würde..deswegen fuers erste die chars fuer die modi geaendert
-        if (mode == 'P' || mode == 'I' || mode == 'O') 
+        if (mode == 'P' || mode == 'I' || mode == 'p') 
 			exp = exp.substr(1);
         else 
 			mode = 'I'; // Standard: Infix

@@ -42,7 +42,7 @@ public:
 		bool numMode = 0;
 		for (int k = 0; k < src.length(); k++) {
 			char ele = src[k];
-			std::cout << ele << std::endl;
+			std::cout << "JJ:" << ele << std::endl;
 			if (contains(nums, ele)) 
 			{
 				numMode = 1;
@@ -50,10 +50,11 @@ public:
 			}
 			else if (contains(operators, ele)) 
 			{
+				std::cout << "op" << std::endl;
 				if (numMode == 1) 
 				{
 					Num* n = new Num(getComposedInt(numBuffer));
-					numMode = -1;
+					numMode = 0;
 					numBuffer.clear();
 					i = tokens->insert(i, n);
 					++i;
@@ -67,7 +68,7 @@ public:
 				if (numMode == 1) 
 				{
 					Num* n = new Num(getComposedInt(numBuffer));
-					numMode = -1;
+					numMode = 0;
 					numBuffer.clear();
 					i = tokens->insert(i, n);
 					++i;
@@ -79,7 +80,15 @@ public:
 			}
 			else 
 			{
-				std::cout << "not relevant" << std::endl;
+				if (numMode == 1) 
+				{
+					std::cout << "debug" << std::endl;
+					Num* n = new Num(getComposedInt(numBuffer));
+					numMode = 0;
+					numBuffer.clear();
+					i = tokens->insert(i, n);
+					++i;
+				}
 			}
 		}
 
