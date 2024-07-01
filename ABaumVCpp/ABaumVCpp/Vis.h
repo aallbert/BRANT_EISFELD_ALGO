@@ -92,6 +92,7 @@ public:
             std::cout << std::setw(newXOrig) << type << std::endl;
             history += 'o';
             drawTreeBin(t->left(), depth + 1, history += 'l', newXOrig);
+            history.pop_back();
             drawTreeBin(t->right(), depth + 1, history += 'r', newXOrig);
 
         } else {
