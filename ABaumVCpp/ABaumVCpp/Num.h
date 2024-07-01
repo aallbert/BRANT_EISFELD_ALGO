@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include "Token.h"
 
 /*
@@ -11,52 +12,38 @@ class Num : public Token
 {
     
 	int number;
+    std::string intToChar(int i) {
+        if (abs(i) != i || abs(i) > 9) return "-";
+        return (std::string){(char)(48 + i)};
+    }
 
-	// to implement ...
 public:
 
     Num() {} // DIESEN LEEREN STANDARDKONSTRUKTOR NICHT LOESCHEN
-	Num(int i) { /* cout << "Number added: " << i << endl; */ number = i;
-    type = *"n";
+	Num(int i) {  
+        cout << "Number added: " << i << endl; 
+        number = i;
+        type = *"n";
     }
     
     int eval() 
 	{
 
-        // to implement ...
-        
-        cout << "Die Methode Num.eval ist noch nicht implementiert!" << endl;
-
-        return 1; // remove this line
+        return number;
     }
     
     string prefix() 
 	{
-
-        // to implement ...
-        
-        cout << "Die Methode Num.prefix ist noch nicht implementiert!" << endl;
-
-        return ""; // remove this line
+        return intToChar(number); // remove this line
     }
     string infix() 
 	{
-
-        // to implement ...
-        
-        cout << "Die Methode Num.infix ist noch nicht implementiert!" << endl;
-
-        return ""; // remove this line
+        return intToChar(number); // remove this line
     }
 
 	string postfix() 
 	{
-
-        // to implement ...
-                
-        cout << "Die Methode Num.postfix ist noch nicht implementiert!" << endl;
-
-        return ""; // remove this line
+        return intToChar(number); // remove this line
     }
     
     /*
