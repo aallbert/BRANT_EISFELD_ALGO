@@ -1,7 +1,8 @@
 #include "Token.h"
+#include <iomanip>
 
 /*
- * Visualisierung eines arithmetischen Binärbaums
+ * Visualisierung eines arithmetischen Binï¿½rbaums
  */
 class Vis
 {
@@ -12,8 +13,8 @@ class Vis
 
 public:
 	
-    static const int REGULAR = 1; // Darstellung mit gleichen Abständen zwischen Knoten
-    static const int BINARY = 2;  // Darstellung mit fortlaufend halbierten Abständen
+    static const int REGULAR = 1; // Darstellung mit gleichen Abstï¿½nden zwischen Knoten
+    static const int BINARY = 2;  // Darstellung mit fortlaufend halbierten Abstï¿½nden
 
     /*
      * Erzeugt das Text-/Grafikfenster.
@@ -71,7 +72,7 @@ public:
      */
     void drawTreeBin(Token *t) 
 	{
-        drawTreeBin(t, 0, "", 0);
+        drawTreeBin(t, 0, "", 100);
     }
 
     /*
@@ -84,7 +85,35 @@ public:
      */
 	void drawTreeBin(Token *t, int depth, string history, int xorig) 
 	{
-		// ...
+        char type = t->type; 
+
+        if (type == '+' || type == '-' || type == '*' || type == '/') {
+            int newXOrig = xorig / pow(2, depth);
+            std::cout << std::setw(newXOrig) << type << std::endl;
+            history += 'o';
+            drawTreeBin(t->left(), depth + 1, history += 'l', newXOrig);
+            drawTreeBin(t->right(), depth + 1, history += 'r', newXOrig);
+
+        } else {
+            int padding = history[history.length() - 1] == 'l' ? - 5 : 5;
+            int paddingFull = 0;
+            if (history[history.length() - 1] == 'l') {
+                paddingFull = xorig + padding;
+            } else if (history[history.length() - 1] == 'r') {
+                paddingFull = 2 * padding;
+            } else {
+               paddingFull = 2 * xorig; 
+            } 
+
+            for (int i = 0; i < paddingFull ; i++) {
+                std::cout << " ";
+            }
+            std::cout << type << " " << history;
+            if (padding == 5) std::cout << std::endl << std::endl << std::endl;
+        }
+
+
+
 	}
 
     /*

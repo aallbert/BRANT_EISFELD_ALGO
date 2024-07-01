@@ -1,3 +1,5 @@
+#ifndef TOKENIZER
+#define TOKENIZER
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -42,7 +44,6 @@ public:
 		bool numMode = 0;
 		for (int k = 0; k < src.length(); k++) {
 			char ele = src[k];
-			std::cout << "JJ:" << ele << std::endl;
 			if (contains(nums, ele)) 
 			{
 				numMode = 1;
@@ -121,3 +122,5 @@ public:
 		}
 		
 };
+
+#endif

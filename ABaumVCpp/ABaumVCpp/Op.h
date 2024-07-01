@@ -10,7 +10,7 @@
 class Op : public Token 
 {
 
-    Token *left, *right;
+    Token *le, *ri;
 
 public: 
 
@@ -24,8 +24,8 @@ public:
     Op(char t, Token *l, Token *r) 
 	{
         type = t;
-        left = l;
-        right = r;
+        le = l;
+        ri = r;
     }
     
     /*
@@ -36,13 +36,13 @@ public:
     Op(char t) 
 	{
         type = t;
-        left = NULL;
-        right = NULL;
+        le = NULL;
+        ri = NULL;
 		// cout << "Operator added: " << t << endl;
     }
 
-    Token* getLeft() { return left; }
-    Token* getRight() { return right; }
+    Token* left() override {  return le; }
+    Token* right() override { return ri; }
 
     int eval() 
 	{
@@ -110,9 +110,9 @@ public:
      */
     void order(Order *o) 
 	{
-        left->order(o);
+        le->order(o);
         setOrd(++o->counter);
-        right->order(o);
+        ri->order(o);
     }
 
 };

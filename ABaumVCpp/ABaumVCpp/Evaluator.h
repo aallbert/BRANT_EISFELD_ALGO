@@ -38,9 +38,9 @@ public:
         }
         // Aus den Tokens den arithmetischen Bin�rbaum aufbauen
         Token *e = parse(t->tokenize(), mode);
-        std::cout << e << std::endl;
-        std::cout << e << std::endl;
-        std::cout << e->right() << std::endl;
+        // jToken *e1 = new Op('-', new Num(4), new Num(5));
+        Vis visualizer = Vis(e, 2);
+        visualizer.drawTreeBin(e);
         return;
 
         // Testbaum, falls Tokenizer und/oder Parser noch nicht fertig:
@@ -129,7 +129,7 @@ private:
                 s->push(*i);
             } else {
                 char op = (*i)->type;
-                if (op == '+') {
+                if (op == '+' ||op == '-' ||op == '*' ||op == '/') {
                     std::cout << "in" << std::endl;
                     auto i1 = s->top();
                     std::cout << i1 << std::endl;
@@ -140,11 +140,11 @@ private:
                     s->push(new Op(op, i1, i2));
                 }
             }
-            ++i;
+            i++;
         }
 
-        cout << "Die Methode Evaluator.parsePostfix ist noch nicht implementiert!" << endl;
-		
+        cout << "Stacklen: " << s->size() << endl;
+    
 		return s->top(); 
     }
 

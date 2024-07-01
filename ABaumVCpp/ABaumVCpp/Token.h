@@ -17,8 +17,8 @@ public:
 	virtual string prefix() = 0;	// Prefix-Darstellung
     virtual string infix() = 0;		// Infix-Darstellung
     virtual string postfix() = 0;	// Postfix-Darstellung
-    Token* left() { return NULL; }	// Linker Unterbaum
-    Token* right() { return NULL; } // Rechter Unterbaum
+    virtual Token* left() { return NULL; }	// Linker Unterbaum
+    virtual Token* right() { return NULL; } // Rechter Unterbaum
     int nodes() { return 1; }		// Anzahl der Knoten des Baums
     int depth() { return 1; }		// Tiefe des Baums
 
