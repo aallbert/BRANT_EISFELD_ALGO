@@ -83,39 +83,33 @@ public:
      * Parameter: history Pfad bestehend aus "l" und "r" von der Wurzel zum aktuellen Knoten
      * Parameter: xorig x-Position des Vaterknotens
      */
-	void drawTreeBin(Token *t, int depth, string history, int xorig) 
-	{
-        char type = t->type; 
+void drawTreeBin(Token *t, int depth, string history, int xorig) {
+    if (t == nullptr) {
+        return;
+    }
 
-        if (type == '+' || type == '-' || type == '*' || type == '/') {
-            int newXOrig = xorig / pow(2, depth);
-            std::cout << std::setw(newXOrig) << type << std::endl;
-            history += 'o';
-            drawTreeBin(t->left(), depth + 1, history += 'l', newXOrig);
-            history.pop_back();
-            drawTreeBin(t->right(), depth + 1, history += 'r', newXOrig);
+    char type = t->getType();
+    int spacing = 80 / pow(2, depth + 1);  // Adjust spacing based on the depth
 
-        } else {
-            int padding = history[history.length() - 1] == 'l' ? - 5 : 5;
-            int paddingFull = 0;
-            if (history[history.length() - 1] == 'l') {
-                paddingFull = xorig + padding;
-            } else if (history[history.length() - 1] == 'r') {
-                paddingFull = 2 * padding;
-            } else {
-               paddingFull = 2 * xorig; 
-            } 
-
-            for (int i = 0; i < paddingFull ; i++) {
-                std::cout << " ";
-            }
-            std::cout << type << " " << history;
-            if (padding == 5) std::cout << std::endl << std::endl << std::endl;
+    if (type == '+' || type == '-' || type == '*' || type == '/') {
+        cout << setw(xorig) << type << endl;
+        drawTreeBin(t->left(), depth + 1, history + 'l', xorig - spacing);
+        drawTreeBin(t->right(), depth + 1, history + 'r', xorig + spacing);
+    } else {
+        int padding = history.back() == 'l' ? -spacing / 2 : spacing / 2;
+        int position = xorig + padding;
+        for (int i = 0; i < position; ++i) {
+            cout << " ";
         }
-
-
-
-	}
+        Num* numToken = dynamic_cast<Num*>(t);
+        if (numToken) {
+            cout << numToken->eval();
+        } else {
+            cout << type;
+        }
+        cout << " " << history << std::endl;
+    }
+}	
 
     /*
      * Zeichnen des Baums und Anzeige des Grafikfensters
