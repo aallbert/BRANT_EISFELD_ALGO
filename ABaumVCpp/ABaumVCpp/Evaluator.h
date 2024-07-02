@@ -94,8 +94,8 @@ private:
 
 		switch (mode) 
 		{
-            case 'P': return parsePrefix(i, end);
-            case 'p': return parsePostfix(i, end);
+            case '<': return parsePrefix(i, end);
+            case '>': return parsePostfix(i, end);
             default : return parseInfix(i, end);
         }
     }
