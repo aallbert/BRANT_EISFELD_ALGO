@@ -51,7 +51,7 @@ public:
      */
     void drawTreeReg(Token *t) 
 	{
-        drawTreeReg(t, 0, 0);
+        drawTreeReg(t, 0, 100);
     }
     
     /*
@@ -62,7 +62,30 @@ public:
      * Parameter: xorig x-Position des Vaterknotens
      */
     void drawTreeReg(Token *t, int depth, int xorig) 
+    // Nicht wirklich implementiert, muss überarbeitet werden
 	{
+      if (t == nullptr) {
+        return;
+    }
+
+    char type = t->getType();
+    int spacing = 5;  // Adjust spacing based on the depth
+
+    if (type == '+' || type == '-' || type == '*' || type == '/') {
+        cout << setw(xorig) << type << endl;
+        drawTreeReg(t->left(), depth + 1,  xorig - spacing);
+        drawTreeReg(t->right(), depth + 1,  xorig + spacing);
+    } else {
+        for (int i = 0; i < xorig; ++i) {
+            cout << " ";
+        }
+        Num* numToken = dynamic_cast<Num*>(t);
+        if (numToken) {
+            cout << numToken->eval();
+        } else {
+            cout << type;
+        }
+    }
 		// ...
 	}
     
