@@ -131,7 +131,7 @@ void drawTreeBin(Token *t, int depth, string history, int xorig) {
         } else {
             cout << type;
         }
-        cout << " " << history << std::endl;
+        cout << std::endl;
     }
 }	
 
