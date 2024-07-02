@@ -12,10 +12,7 @@ class Num : public Token
 {
     
 	int number;
-    std::string intToChar(int i) {
-        if (abs(i) != i || abs(i) > 9) return "-";
-        return (std::string){(char)(48 + i)};
-    }
+
 
 public:
 
@@ -28,22 +25,21 @@ public:
     
     int eval() 
 	{
-
         return number;
     }
     
     string prefix() 
 	{
-        return intToChar(number); // remove this line
+        return std::to_string(number); // remove this line
     }
     string infix() 
 	{
-        return intToChar(number); // remove this line
+        return std::to_string(number); // remove this line
     }
 
 	string postfix() 
 	{
-        return intToChar(number); // remove this line
+        return std::to_string(number); // remove this line
     }
     
     /*

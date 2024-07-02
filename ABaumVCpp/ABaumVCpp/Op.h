@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 #include "Token.h"
+#include "Num.h"    
+
+using namespace std;
 
 /*
  * Baumknoten und Token zur Darstellung eines Operators.
@@ -48,30 +51,32 @@ public:
 
     int eval() 
 	{
+        cout << "TESTING EVAL()" << endl;
         if (le != NULL && ri != NULL){
-        Op leftSubtree = Op(le->getType(), le->left(), le->right());
-        Op rightSubtree = Op(ri->getType(), ri->left(), ri->right());
-        switch (type) 
-        {
-            case '+':
-                return leftSubtree.eval() + rightSubtree.eval();
-                break;
-            case '-':
-                return leftSubtree.eval() - rightSubtree.eval(); 
-                break;
-            case '*':
-                return leftSubtree.eval() * rightSubtree.eval(); 
-                break;
-            case '/':
-                return leftSubtree.eval() / rightSubtree.eval();
-                break;
-            default:
-                cout << "Operator Typ nicht erkannt!" << endl; 
-                break;    
+            Op leftSubtree = Op(le->type, le->left(), le->right());
+            Op rightSubtree = Op(ri->type, ri->left(), ri->right());
+            switch (type) 
+            {
+                case '+':
+                    cout << "Testitntn " << le->type << this->type << ri->type << endl; 
+                    return leftSubtree.eval() + rightSubtree.eval();
+                    break;
+                case '-':
+                    return leftSubtree.eval() - rightSubtree.eval(); 
+                    break;
+                case '*':
+                    return leftSubtree.eval() * rightSubtree.eval(); 
+                    break;
+                case '/':
+                    return leftSubtree.eval() / rightSubtree.eval();
+                    break;
+                default:
+                    cout << "Operator Typ nicht erkannt!" << endl; 
+                    break;    
+                }
             }
-        }
-        
-        return 0;
+        cout << "ZAHLENKNOTEN" << endl;
+        return  dynamic_cast<Num*>((Token*)this)->eval();;
     }
     
     string prefix() 
