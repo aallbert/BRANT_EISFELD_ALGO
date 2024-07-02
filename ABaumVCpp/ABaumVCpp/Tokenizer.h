@@ -51,7 +51,6 @@ public:
 			}
 			else if (contains(operators, ele)) 
 			{
-				std::cout << "op" << std::endl;
 				if (numMode == 1) 
 				{
 					Num* n = new Num(getComposedInt(numBuffer));
@@ -83,7 +82,6 @@ public:
 			{
 				if (numMode == 1) 
 				{
-					std::cout << "debug" << std::endl;
 					Num* n = new Num(getComposedInt(numBuffer));
 					numMode = 0;
 					numBuffer.clear();

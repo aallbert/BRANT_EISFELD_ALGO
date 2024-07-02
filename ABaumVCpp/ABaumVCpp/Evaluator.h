@@ -32,11 +32,9 @@ public:
         // String in Tokens zerlegen
         Tokenizer *t = new Tokenizer(exp);
          std::cout << "Tokenizer erfolgreich" << std::endl;
-        std::vector<Token*>* tokens = t->tokenize();
-        for (Token* tok : *tokens) {
-            std::cout << "J:" << tok->eval() << std::endl;
-        }
+
         // Aus den Tokens den arithmetischen Bin�rbaum aufbauen
+
         Token *e = parse(t->tokenize(), mode);
         // jToken *e1 = new Op('-', new Num(4), new Num(5));
         Vis visualizer = Vis(e, 2);
@@ -134,21 +132,15 @@ private:
     Token* parsePostfix(vector<Token*>::iterator i, vector<Token*>::iterator end)
 	{
 		stack<Token*> *s = new stack<Token*>();
-        std::cout << "___________" << std::endl;
         while (i != end) {
-            std::cout << (*i)->type << std::endl;
-            std::cout << *i << std::endl;
             if ((*i)->type == 'n') {
                 s->push(*i);
             } else {
                 char op = (*i)->type;
                 if (op == '+' ||op == '-' ||op == '*' ||op == '/') {
-                    std::cout << "in" << std::endl;
                     auto i1 = s->top();
-                    std::cout << i1 << std::endl;
                     s->pop();
                     auto i2 = s->top();
-                    std::cout << i2 << std::endl;
                     s->pop();
                     s->push(new Op(op, i1, i2));
                 }
@@ -156,7 +148,7 @@ private:
             i++;
         }
 
-        cout << "Stacklen: " << s->size() << endl;
+        cout << s->size() << endl;
     
 		return s->top(); 
     }
@@ -185,9 +177,6 @@ private:
         std::cout << s->size() << std::endl;
         return s->top();
 
-        cout << "Die Methode Evaluator.parseInfix ist noch nicht implementiert!" << endl;
-		
-		return new Num(); // remove this line
     }
     private:
 
