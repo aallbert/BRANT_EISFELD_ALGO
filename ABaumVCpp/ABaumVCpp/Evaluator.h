@@ -34,14 +34,14 @@ public:
          std::cout << "Tokenizer erfolgreich" << std::endl;
         std::vector<Token*>* tokens = t->tokenize();
         for (Token* tok : *tokens) {
-            std::cout << tok->type << std::endl;
+            std::cout << "J:" << tok->eval() << std::endl;
         }
         // Aus den Tokens den arithmetischen Bin�rbaum aufbauen
         Token *e = parse(t->tokenize(), mode);
         // jToken *e1 = new Op('-', new Num(4), new Num(5));
         Vis visualizer = Vis(e, 2);
         //visualizer.drawTreeBin(e);
-        visualizer.drawTreeReg(e);
+        visualizer.drawTreeBin(e);
         return;
 
         // Testbaum, falls Tokenizer und/oder Parser noch nicht fertig:
@@ -96,28 +96,34 @@ private:
 		{
             case 'P': return parsePrefix(i, end);
             case 'p': return parsePostfix(i, end);
-            default : return parseInfix(i);
+            default : return parseInfix(i, end);
         }
     }
 
 	Token* parsePrefix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
 	{
 
-
-        cout << "P:" << (*i)->type << endl;
-        cout << "P_:" << (*i) << " " << (*end) << endl;
-        if (i == end) return (*i);
-        // to implement ...
-        if (contains({'+', '-', '/', '*'}, (*i)->type)) {
-            char type = (*i)->type;
-            ++i;
-            Token* left = parsePrefix(i, end);
-            Token* right = parsePrefix(i, end);
-            return new Op(type, left, right);
-        } else {
-            return (*i);
-        } 
+   if (i == end) {
+        return nullptr;
     }
+
+    Token* current = *i;
+    i++;  // Iterator vorwärts bewegen
+    std::cout << current->eval() << std::endl;
+
+    if (current->getType() == 'n') {
+        // Es ist eine Zahl
+        return current;
+    } else if (contains({'+', '-', '*', '/'}, current->getType())) {
+        // Es ist ein Operator
+        char type = current->getType();
+        Token* leftOperand = parsePrefix(i, end);
+        Token* rightOperand = parsePrefix(i, end);
+        return new Op(type, leftOperand, rightOperand);
+    }
+
+    return nullptr;
+   }
 
     Token* parsePostfix(vector<Token*>::iterator i, vector<Token*>::iterator end)
 	{
@@ -149,11 +155,29 @@ private:
 		return s->top(); 
     }
 
-    Token* parseInfix(vector<Token*>::iterator) 
+    Token* parseInfix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
 	{
         stack<Token*> *s = new stack<Token*>();
+        std::vector<Token*> *argBuffer = new vector<Token*>();
 
-        // to implement ...
+        while (i != end) {
+            if ((*i)->type != ')') {
+                s->push(*i);
+            } else {
+                for (int k = 0; k < 3; k++) {
+                    Token* t = s->top();
+                    s->pop();
+                    argBuffer->push_back(t);
+                }
+                // pop opening bracket
+                s->pop();
+                s->push(new Op(argBuffer->at(1)->type, argBuffer->at(0), argBuffer->at(2)));
+                argBuffer->clear();
+            }
+            i++;
+        }
+        std::cout << s->size() << std::endl;
+        return s->top();
 
         cout << "Die Methode Evaluator.parseInfix ist noch nicht implementiert!" << endl;
 		
