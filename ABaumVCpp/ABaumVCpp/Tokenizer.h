@@ -7,7 +7,7 @@
 #include "Num.h"
 #include "Bracket.h"
 #include "Op.h"
-
+#include "helperFile.h"
 
 using namespace std;
 
@@ -115,7 +115,7 @@ public:
 			int power = 0;
 			std::reverse(numBuffer.begin(), numBuffer.end());
 			for (int num : numBuffer) {
-				numToAdd += num * pow(10, power);	
+				numToAdd += num * customPow(10, power);	
 				power++;
 			}
 			return numToAdd;
