@@ -103,26 +103,32 @@ private:
 	Token* parsePrefix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
 	{
 
-   if (i == end) {
-        return nullptr;
-    }
+        stack<Token*> *s = new stack<Token*>();
+        std::vector<Token*> *argBuffer = new vector<Token*>();
 
-    Token* current = *i;
-    i++;  // Iterator vorwärts bewegen
-    std::cout << current->eval() << std::endl;
+        int tokenCounter = 0;
 
-    if (current->getType() == 'n') {
-        // Es ist eine Zahl
-        return current;
-    } else if (contains({'+', '-', '*', '/'}, current->getType())) {
-        // Es ist ein Operator
-        char type = current->getType();
-        Token* leftOperand = parsePrefix(i, end);
-        Token* rightOperand = parsePrefix(i, end);
-        return new Op(type, leftOperand, rightOperand);
-    }
-
-    return nullptr;
+        while (i != end) {
+            if (tokenCounter < 2) {
+                if (!contains({'+', '-', '*', '/'}, (*i)->type)) {
+                    tokenCounter++;
+                }
+                s->push(*i);
+            }
+            if (tokenCounter == 2) {
+                for (int k = 0; k < 3; k++) {
+                    Token* t = s->top();
+                    s->pop();
+                    argBuffer->push_back(t);
+                }
+                s->push(new Op(argBuffer->at(2)->type, argBuffer->at(0), argBuffer->at(1)));
+                argBuffer->clear();
+                tokenCounter--;
+            }
+            i++;
+        }
+        std::cout << s->size() << std::endl;
+        return s->top();
    }
 
     Token* parsePostfix(vector<Token*>::iterator i, vector<Token*>::iterator end)
