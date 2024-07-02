@@ -38,6 +38,7 @@ public:
         }
         // Aus den Tokens den arithmetischen Bin�rbaum aufbauen
         Token *e = parse(t->tokenize(), mode);
+        cout << "Ergebnis: " << e->eval() << endl;
         // jToken *e1 = new Op('-', new Num(4), new Num(5));
         Vis visualizer = Vis(e, 2);
         visualizer.drawTreeBin(e);

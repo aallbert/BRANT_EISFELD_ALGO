@@ -45,5 +45,6 @@ int main(int argc, char* argv[])
 		Evaluator e;
 		std::cout << std::endl << "mode" << mode << std::endl;
 		e.evaluate(exp, mode);
+		
     }
 }

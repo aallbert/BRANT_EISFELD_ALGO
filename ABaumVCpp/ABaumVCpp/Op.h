@@ -41,17 +41,37 @@ public:
 		// cout << "Operator added: " << t << endl;
     }
 
+    ~Op(){};
+
     Token* left() override {  return le; }
     Token* right() override { return ri; }
 
     int eval() 
 	{
-
-        // to implement ...
+        if (le != NULL && ri != NULL){
+        Op leftSubtree = Op(le->getType(), le->left(), le->right());
+        Op rightSubtree = Op(ri->getType(), ri->left(), ri->right());
+        switch (type) 
+        {
+            case '+':
+                return leftSubtree.eval() + rightSubtree.eval();
+                break;
+            case '-':
+                return leftSubtree.eval() - rightSubtree.eval(); 
+                break;
+            case '*':
+                return leftSubtree.eval() * rightSubtree.eval(); 
+                break;
+            case '/':
+                return leftSubtree.eval() / rightSubtree.eval();
+                break;
+            default:
+                cout << "Operator Typ nicht erkannt!" << endl; 
+                break;    
+            }
+        }
         
-        cout << "Die Methode Op.eval ist noch nicht implementiert!" << endl;
-
-        return 1; // remove this line
+        return 0;
     }
     
     string prefix() 
