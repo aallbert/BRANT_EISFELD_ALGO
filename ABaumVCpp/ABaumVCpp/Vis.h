@@ -1,4 +1,5 @@
 #include "Token.h"
+#include "helperFile.h"
 #include <iomanip>
 
 /*
@@ -89,7 +90,7 @@ void drawTreeBin(Token *t, int depth, string history, int xorig) {
     }
 
     char type = t->getType();
-    int spacing = 80 / pow(2, depth + 1);  // Adjust spacing based on the depth
+    int spacing = 80 / customPow(2, depth + 1);  // Adjust spacing based on the depth
 
     if (type == '+' || type == '-' || type == '*' || type == '/') {
         cout << setw(xorig) << type << endl;
