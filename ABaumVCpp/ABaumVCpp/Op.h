@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Token.h"
+#include <format>
 
 /*
  * Baumknoten und Token zur Darstellung eines Operators.
@@ -69,36 +70,39 @@ public:
                 return 1;
                 break;
             }
-
-        return 1; // remove this line
     }
     
     string prefix() 
 	{
-
-        // to implement ...
-        
-        cout << "Die Methode Op.prefix ist noch nicht implementiert!" << endl;
-
-        return ""; // remove this line
+        std::string prefixStr = "";
+        string d1, d2;
+        char type = this->type;    
+        d1 = this->le->prefix();
+        d2 = this->ri->prefix();
+        return prefixStr + type + " " + d1 + " " + d2; 
     }
+
     string infix() 
 	{
 
-        // to implement ...
-        
-        cout << "Die Methode Op.infix ist noch nicht implementiert!" << endl;
-
-        return ""; // remove this line
+        std::string infixStr = "(";
+        std::string d1, d2;
+        char type = this->type;    
+        d1 = this->le->infix();
+        d2 = this->ri->infix();
+        return infixStr + d1 + type + d2 + ')'; 
+             
     }
+
     string postfix() 
 	{
 
-        // to implement ...
-                
-        cout << "Die Methode Op.postfix ist noch nicht implementiert!" << endl;
-
-        return ""; // remove this line
+        std::string postfixStr= "";
+        std::string d1, d2;
+        char type = this->type;    
+        d1 = this->le->postfix();
+        d2 = this->ri->postfix();
+        return postfixStr + d1 + " " + d2 + " " + type; 
     }
 
     int nodes() 

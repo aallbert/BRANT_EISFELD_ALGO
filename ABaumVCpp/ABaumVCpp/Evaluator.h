@@ -41,7 +41,6 @@ public:
         Vis visualizer = Vis(e, 2);
         //visualizer.drawTreeBin(e);
         visualizer.drawTreeBin(e);
-        return;
 
         // Testbaum, falls Tokenizer und/oder Parser noch nicht fertig:
         /*
@@ -65,6 +64,7 @@ public:
         cout << "Prefix:  " << e->prefix() << " = " << e->eval() << endl;
         cout << "Infix:   " << e->infix() << " = " << e->eval() << endl;
         cout << "Postfix: " << e->postfix() << " = " << e->eval() << endl;
+        return;
         cout << "#Knoten: " << e->nodes() << endl;
         cout << "Tiefe:   " << e->depth() << endl;
 
