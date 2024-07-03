@@ -64,9 +64,9 @@ public:
         cout << "Prefix:  " << e->prefix() << " = " << e->eval() << endl;
         cout << "Infix:   " << e->infix() << " = " << e->eval() << endl;
         cout << "Postfix: " << e->postfix() << " = " << e->eval() << endl;
-        return;
-        cout << "#Knoten: " << e->nodes() << endl;
+        cout << "Knoten: " << e->nodes() << endl;
         cout << "Tiefe:   " << e->depth() << endl;
+        return;
 
         // Grafische Darstellung des arithmetischen Bin�rbaums
 		Vis *v = new Vis(e, Vis::REGULAR); // Layout 1: gleiche Abst�nde zwischen Knoten

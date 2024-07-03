@@ -19,8 +19,9 @@ public:
     virtual string postfix() = 0;	// Postfix-Darstellung
     virtual Token* left() { return NULL; }	// Linker Unterbaum
     virtual Token* right() { return NULL; } // Rechter Unterbaum
-    int nodes() { return 1; }		// Anzahl der Knoten des Baums
-    int depth() { return 1; }		// Tiefe des Baums
+    virtual int nodes() { return 1; }		// Anzahl der Knoten des Baums
+    virtual int depth() { return 1; }		// Tiefe des Baums
+    virtual int depth(char mode) { return 1; }		// Tiefe des Baums
 
     /*
      * Gibt die Reihenfolge des Knotens in der Infix-Darstellung zurueck (wichtig fuer die Visualisierung).

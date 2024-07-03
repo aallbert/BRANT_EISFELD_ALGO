@@ -21,7 +21,7 @@ public:
         number = i;
         type = *"n";
     }
-    
+
     int eval() 
 	{
         return number;
