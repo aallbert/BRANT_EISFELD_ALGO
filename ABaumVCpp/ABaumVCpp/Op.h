@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include "Token.h"
-#include <format>
 
 /*
  * Baumknoten und Token zur Darstellung eines Operators.
@@ -105,24 +104,26 @@ public:
         return postfixStr + d1 + " " + d2 + " " + type; 
     }
 
-    int nodes() 
+    int nodes() override 
 	{
+        return 1 + this->le->nodes() + this->ri->nodes(); 
+    }
 
-        // to implement ...
-
-        cout << "Die Methode Op.nodes ist noch nicht implementiert!" << endl;
-
+    int depth() override 
+	{
+        int leftDepth, rightDepth;
+         leftDepth += this->le->depth('l');
+         rightDepth += this->ri->depth('r');
+        std::cout << leftDepth << " " << rightDepth << std::endl;
         return 1; // remove this line
     }
 
-    int depth() 
-	{
-
-        // to implement ...
-                
-        cout << "Die Methode Op.depth ist noch nicht implementiert!" << endl;
-
-        return 1; // remove this line
+    int depth(char mode) override {
+        if (mode == 'l') {
+            return 1 + this->le->depth('l');
+        } else {
+            return 1 + this->ri->depth('r');
+        }
     }
 
     /*
