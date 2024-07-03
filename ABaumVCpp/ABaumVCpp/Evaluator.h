@@ -93,24 +93,30 @@ private:
 
 		switch (mode) 
 		{
-            case '<': return parsePrefix(i, end);
+            case '<': return parsePrefix(i, end, 1);
             case '>': return parsePostfix(i, end);
             default : return parseInfix(i, end);
         }
     }
 
-    Token* parsePrefix(vector<Token*>::iterator i, std::vector<Token*>::iterator end) 
+    Token* parsePrefix(vector<Token*>::iterator i, const std::vector<Token*>::iterator end, int lIncr) 
     {
-        if (i == end) return nullptr; 
+        //TODO Terme mit mehreren Operationen nicht richtig geparsed
+        if (i == end || *i == nullptr) return nullptr; 
 
         Token* currNode = *i;
-        if (currNode->type == 'n') return currNode;
+        if (currNode->type == 'n'){
+            i++;
+            return currNode;
+        } 
 
-        ++i; 
-        Token* left = parsePrefix(i, end);
+        i++;
+        lIncr++; 
+        Token* left = parsePrefix(i, end, lIncr);
 
-        ++i; 
-        Token* right = parsePrefix(i, end);
+        advance(i, lIncr); 
+        lIncr = 1;
+        Token* right = parsePrefix(i, end, lIncr);
 
         Op* res = new Op(currNode->type, left, right); 
         return res;

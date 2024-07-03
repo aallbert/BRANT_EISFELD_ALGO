@@ -7,3 +7,8 @@ int customPow(int base, int exp){
     }
     return res;
 }
+
+int biggerInt(int a, int b){
+    if (a > b) return a;
+    return b;
+}

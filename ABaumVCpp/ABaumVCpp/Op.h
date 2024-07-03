@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Token.h"
+#include "helperFile.h"
 
 /*
  * Baumknoten und Token zur Darstellung eines Operators.
@@ -111,19 +112,8 @@ public:
 
     int depth() override 
 	{
-        int leftDepth, rightDepth;
-         leftDepth += this->le->depth('l');
-         rightDepth += this->ri->depth('r');
-        std::cout << leftDepth << " " << rightDepth << std::endl;
-        return 1; // remove this line
-    }
-
-    int depth(char mode) override {
-        if (mode == 'l') {
-            return 1 + this->le->depth('l');
-        } else {
-            return 1 + this->ri->depth('r');
-        }
+        if (this->le == nullptr || this->ri == nullptr) return 0;
+        return 1 + biggerInt(this->le->depth(), this->ri->depth());
     }
 
     /*
