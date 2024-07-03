@@ -99,37 +99,23 @@ private:
         }
     }
 
-	Token* parsePrefix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
-	{
-        // TODO, klappt nicht für den Test Case
-        stack<Token*> *s = new stack<Token*>();
-        std::vector<Token*> *argBuffer = new vector<Token*>();
+    Token* parsePrefix(vector<Token*>::iterator i, std::vector<Token*>::iterator end) 
+    {
+        if (i == end) return nullptr; 
 
-        int tokenCounter = 0;
+        Token* currNode = *i;
+        if (currNode->type == 'n') return currNode;
 
-        while (i != end) {
-            if (tokenCounter < 2) {
-                if (!contains({'+', '-', '*', '/'}, (*i)->type)) {
-                    tokenCounter++;
-                }
-                tokenCounter = 0;
-                s->push(*i);
-            }
-            if (tokenCounter == 2) {
-                for (int k = 0; k < 3; k++) {
-                    Token* t = s->top();
-                    s->pop();
-                    argBuffer->push_back(t);
-                }
-                s->push(new Op(argBuffer->at(2)->type, argBuffer->at(1), argBuffer->at(0)));
-                argBuffer->clear();
-                tokenCounter--;
-            }
-            i++;
-        }
-        std::cout << s->size() << std::endl;
-        return s->top();
-   }
+        ++i; 
+        Token* left = parsePrefix(i, end);
+
+        ++i; 
+        Token* right = parsePrefix(i, end);
+
+        Op* res = new Op(currNode->type, left, right); 
+        return res;
+    }
+
 
     Token* parsePostfix(vector<Token*>::iterator i, vector<Token*>::iterator end)
 	{

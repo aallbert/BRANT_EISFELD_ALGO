@@ -24,7 +24,6 @@ public:
     
     int eval() 
 	{
-
         return number;
     }
     
