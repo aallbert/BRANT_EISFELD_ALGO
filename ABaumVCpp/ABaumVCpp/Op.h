@@ -60,7 +60,7 @@ public:
                 return this->le->eval() - this->ri->eval();
                 break;
             case '*':
-                 return this->le->eval() * this->ri->eval();
+                return (this->le->eval()) * (this->ri->eval());
                 break;
             case '/':
                 return (double)((double)this->le->eval() / this->ri->eval());
