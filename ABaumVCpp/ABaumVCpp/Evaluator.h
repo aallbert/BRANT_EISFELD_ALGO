@@ -37,6 +37,7 @@ public:
 
         Token *e = parse(t->tokenize(), mode);
         // jToken *e1 = new Op('-', new Num(4), new Num(5));
+        std::cout << "Ergebnis: " << e->eval() << std::endl;
         Vis visualizer = Vis(e, 2);
         //visualizer.drawTreeBin(e);
         visualizer.drawTreeBin(e);
@@ -100,7 +101,7 @@ private:
 
 	Token* parsePrefix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
 	{
-
+        // TODO, klappt nicht für den Test Case
         stack<Token*> *s = new stack<Token*>();
         std::vector<Token*> *argBuffer = new vector<Token*>();
 
@@ -111,6 +112,7 @@ private:
                 if (!contains({'+', '-', '*', '/'}, (*i)->type)) {
                     tokenCounter++;
                 }
+                tokenCounter = 0;
                 s->push(*i);
             }
             if (tokenCounter == 2) {
@@ -119,7 +121,7 @@ private:
                     s->pop();
                     argBuffer->push_back(t);
                 }
-                s->push(new Op(argBuffer->at(2)->type, argBuffer->at(0), argBuffer->at(1)));
+                s->push(new Op(argBuffer->at(2)->type, argBuffer->at(1), argBuffer->at(0)));
                 argBuffer->clear();
                 tokenCounter--;
             }
@@ -142,7 +144,7 @@ private:
                     s->pop();
                     auto i2 = s->top();
                     s->pop();
-                    s->push(new Op(op, i1, i2));
+                    s->push(new Op(op, i2, i1));
                 }
             }
             i++;
@@ -169,7 +171,7 @@ private:
                 }
                 // pop opening bracket
                 s->pop();
-                s->push(new Op(argBuffer->at(1)->type, argBuffer->at(0), argBuffer->at(2)));
+                s->push(new Op(argBuffer->at(1)->type, argBuffer->at(2), argBuffer->at(0)));
                 argBuffer->clear();
             }
             i++;

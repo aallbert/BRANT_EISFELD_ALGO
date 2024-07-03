@@ -46,10 +46,29 @@ public:
 
     int eval() 
 	{
-
-        // to implement ...
-        
-        cout << "Die Methode Op.eval ist noch nicht implementiert!" << endl;
+            char type = this->type;    
+            if (type == 'n') {
+                Num* numToken = dynamic_cast<Num*>(this);
+                return numToken->eval();
+            }
+            switch (type)
+            {
+            case '+':
+                return this->le->eval() + this->ri->eval();
+                break;
+            case '-':
+                return this->le->eval() - this->ri->eval();
+                break;
+            case '*':
+                 return this->le->eval() * this->ri->eval();
+                break;
+            case '/':
+                return (double)((double)this->le->eval() / this->ri->eval());
+                break;
+            default:
+                return 1;
+                break;
+            }
 
         return 1; // remove this line
     }
