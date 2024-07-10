@@ -44,38 +44,14 @@ public:
         //visualizer.drawTreeBin(e);
         visualizer.drawTreeBin(e);
 
-        // Testbaum, falls Tokenizer und/oder Parser noch nicht fertig:
-        /*
-        e = new Op('+',
-                   new Op('*',
-                          new Num(2),
-                          new Num(3)),
-                   new Op('-',
-                          new Op('/',
-                                 new Num(6),
-                                 new Num(2)),
-                          new Num(1)));
-       */
-       // Prefix:  + * 2 3 - / 6 2 1 = 8
-       // Infix:   ((2 * 3) + ((6 / 2) - 1)) = 8
-       // Postfix: 2 3 * 6 2 / 1 - + = 8
-       // #Knoten: 9
-       // Tiefe:   4
-
-        // Ausgabe des arithmetischen Ausdrucks
+       // Ausgabe des arithmetischen Ausdrucks
         cout << "Prefix:  " << e->prefix() << " = " << e->eval() << endl;
         cout << "Infix:   " << e->infix() << " = " << e->eval() << endl;
         cout << "Postfix: " << e->postfix() << " = " << e->eval() << endl;
         cout << "Knoten: " << e->nodes() << endl;
         cout << "Tiefe:   " << e->depth() << endl;
         return;
-
-        // Grafische Darstellung des arithmetischen Bin�rbaums
-		Vis *v = new Vis(e, Vis::REGULAR); // Layout 1: gleiche Abst�nde zwischen Knoten
-        //Vis v = new Vis(e, Vis::BINARY); // Layout 2: bin�re Unterteilung
         
-		// Text-/Grafikfenster sichtbar machen
-		// ...
 
     }
 
