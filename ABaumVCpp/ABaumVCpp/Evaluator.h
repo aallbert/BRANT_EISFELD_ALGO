@@ -27,6 +27,8 @@ public:
      * Parameter: 
      * - exp: der arithmetische Ausdruck als String
      * - mode: Modus des Ausdrucks ('<': Prefix, '|': Infix, '>': Postfix)
+     * 
+     * Zusammen
      */
     void evaluate(string exp, char mode) 
 	{
@@ -87,6 +89,8 @@ private:
      * - end: Iterator für das Ende des Token-Vektors
      * 
      * Return: der arithmetische Binärbaum (als Token)
+     * 
+     * Albert Eisfeld
      */
     Token* parsePrefix(vector<Token*>::iterator& i, const std::vector<Token*>::iterator end) 
     {
@@ -116,6 +120,8 @@ private:
      * - end: Iterator für das Ende des Token-Vektors
      * 
      * Return: der arithmetische Binärbaum (als Token)
+     * 
+     * Reinhold Brant
      */
     Token* parsePostfix(vector<Token*>::iterator i, vector<Token*>::iterator end)
 	{
@@ -149,6 +155,8 @@ private:
      * - end: Iterator für das Ende des Token-Vektors
      * 
      * Return: der arithmetische Binärbaum (als Token)
+     * 
+     * Reinhold Brant
      */
     Token* parseInfix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
 	{
@@ -185,6 +193,8 @@ private:
      * - ele: Element, nach dem gesucht wird
      * 
      * Return: true, wenn das Element enthalten ist, sonst false
+     * 
+     * Reinhold Brant
      */
 		template <class T> bool contains(std::vector<T> listLike, T ele) {
 			return std::find(std::begin(listLike), std::end(listLike), ele) != std::end(listLike); 

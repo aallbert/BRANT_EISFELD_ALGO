@@ -5,44 +5,54 @@
 
 using namespace std;
 
+/*
+ * Abstrakte Basisklasse für Tokens/Knoten in einem arithmetischen Ausdrucksbaum
+ */
 class Token 
 {
 public:
-
-	char type;						// Typ des Tokens / Knotens
-    int ord;						// Reihenfolge fuer die Visualisierung
-
-    char getType() { return type; } // Typ des Knotens
-    virtual int eval() = 0;			// Auswertung
-	virtual string prefix() = 0;	// Prefix-Darstellung
-    virtual string infix() = 0;		// Infix-Darstellung
-    virtual string postfix() = 0;	// Postfix-Darstellung
-    virtual Token* left() { return NULL; }	// Linker Unterbaum
-    virtual Token* right() { return NULL; } // Rechter Unterbaum
-    virtual int nodes() { return 1; }		// Anzahl der Knoten des Baums
-    virtual int depth() { return 1; }		// Tiefe des Baums
-    virtual int depth(char mode) { return 1; }		// Tiefe des Baums
+    char type;      // Typ des Tokens/Knotens (z.B. Operator, Zahl)
+    int ord;        // Reihenfolge für die Visualisierung
 
     /*
-     * Gibt die Reihenfolge des Knotens in der Infix-Darstellung zurueck (wichtig fuer die Visualisierung).
-     * 
-     * Return: die Nummer des Knotens
+     * Gibt den Typ des Tokens/Knotens zurück.
+     *
+     * Return: der Typ des Tokens/Knotens
      */
+    char getType() { return type; }
+
+    virtual int eval() = 0;
+
+    virtual string prefix() = 0;
+
+    virtual string infix() = 0;
+
+    virtual string postfix() = 0;
+
+    /*
+     * Gibt den linken Unterbaum zurück.
+     *
+     * Return: Zeiger auf den linken Unterbaum (standardmäßig NULL)
+     */
+    virtual Token* left() { return NULL; }
+
+    /*
+     * Gibt den rechten Unterbaum zurück.
+     *
+     * Return: Zeiger auf den rechten Unterbaum (standardmäßig NULL)
+     */
+    virtual Token* right() { return NULL; }
+
+    virtual int nodes() { return 1; }
+
+    virtual int depth() { return 1; }
+
+    virtual int depth(char mode) { return 1; }
+
     int getOrd() { return ord; }
-
-    /*
-     * Setzt die Nummer des Knotens in der Infix-Darstellung (wichtig fuer die Visualisierung).
-     * 
-     * Parameter: o die Nummer des Knotens
-     */
+    
     void setOrd(int o) { ord = o; }
 
-    /*
-     * Nummeriert den Baum ausgehend vom aktuellen Knoten unter Verwendung eines Zaehlers
-	 * in Infix-Reihenfolge durch (wichtig fuer die Visualisierung).
-     * 
-     * Parameter: o der Zaehler
-     */
     void order(Order *o);
-    
 };
+

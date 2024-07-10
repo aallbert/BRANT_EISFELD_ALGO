@@ -35,6 +35,8 @@ public:
      * Zerlegt den arithmetischen Ausdruck in Tokens.
      *
      * Return: Ein Vektor von Zeigern auf Tokens
+	 * 
+	 * Zusammen
      */
     vector<Token*>* tokenize() 
     {
@@ -111,6 +113,8 @@ private:
      * - ele: Element, nach dem gesucht wird
      * 
      * Return: true, wenn das Element enthalten ist, sonst false
+	 * 
+	 * Reinhold Brant
      */
     template <class T> bool contains(std::vector<T> listLike, T ele) {
         return std::find(std::begin(listLike), std::end(listLike), ele) != std::end(listLike); 
@@ -123,6 +127,8 @@ private:
      * - numBuffer: Vektor von Ziffern (als int)
      * 
      * Return: Die zusammengesetzte Zahl (als int)
+	 * 
+	 * Reinhold Brant
      */
     int getComposedInt(std::vector<int> numBuffer) {
         int numToAdd = 0;

@@ -17,11 +17,13 @@ public:
 
     Num() {} // DIESEN LEEREN STANDARDKONSTRUKTOR NICHT LOESCHEN
 	Num(int i) {  
-        cout << "Number added: " << i << endl; 
         number = i;
         type = *"n";
     }
 
+    /*
+    * Gibt die im Num gespeicherte Zahl als Int zurück. 
+    */
     int eval() 
 	{
         return number;
