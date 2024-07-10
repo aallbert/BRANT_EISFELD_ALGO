@@ -1,6 +1,10 @@
 #include "Token.h"
 #include "helperFile.h"
 #include <iomanip>
+#include <utility>
+#include <queue>
+
+using namespace std;
 
 /*
  * Visualisierung eines arithmetischen Bin�rbaums
@@ -96,7 +100,7 @@ public:
      */
     void drawTreeBin(Token *t) 
 	{
-        drawTreeBin(t, 0, "", 100);
+        drawTreeBin(t, "", 100);
     }
 
     /*
@@ -107,34 +111,85 @@ public:
      * Parameter: history Pfad bestehend aus "l" und "r" von der Wurzel zum aktuellen Knoten
      * Parameter: xorig x-Position des Vaterknotens
      */
-void drawTreeBin(Token *t, int depth, string history, int xorig) {
+void drawTreeBin(Token *t, string history, int xorig) {
     if (t == nullptr) {
         return;
     }
+    struct lvlOrderNodes{
+        Token* node;
+        int level;
+    };
 
-    char type = t->getType();
-    int spacing = 80 / customPow(2, depth + 1);  // Adjust spacing based on the depth
+    queue<lvlOrderNodes>* helperQueue = new queue<lvlOrderNodes>();
+    queue<lvlOrderNodes>* sortedQueue = new queue<lvlOrderNodes>();
+    helperQueue->push({t, 0});
+    Token* phantomNode = new Op(' ', nullptr, nullptr);
 
-    if (type == '+' || type == '-' || type == '*' || type == '/') {
-        cout << setw(xorig) << type << endl;
-        drawTreeBin(t->left(), depth + 1, history + 'l', xorig - spacing);
-        drawTreeBin(t->right(), depth + 1, history + 'r', xorig + spacing);
-    } else {
-        int padding = history.back() == 'l' ? -spacing / 2 : spacing / 2;
-        int position = xorig + padding;
-        for (int i = 0; i < position; ++i) {
-            cout << " ";
+    while (!helperQueue->empty()){
+        lvlOrderNodes currNode = helperQueue->front();
+        sortedQueue->push(currNode);
+        helperQueue->pop();
+
+        if (currNode.node->left() != nullptr) {
+            helperQueue->push({currNode.node->left(), currNode.level + 1});
+        } else if (currNode.node != phantomNode) {
+            helperQueue->push({phantomNode, currNode.level + 1});
         }
-        Num* numToken = dynamic_cast<Num*>(t);
-        if (numToken) {
-            cout << numToken->eval();
-        } else {
-            cout << type;
+
+        if (currNode.node->right() != nullptr) {
+            helperQueue->push({currNode.node->right(), currNode.level + 1});
+        } else if (currNode.node != phantomNode) {
+            helperQueue->push({phantomNode, currNode.level + 1});
         }
-        cout << std::endl;
     }
-}	
+    int depth = 0;
+    while(!sortedQueue->empty()){
+        int spacing = 80 / customPow(2, depth);  // Adjust spacing based on the depth
+        int spacingFactor = 1;
+        int nodeInLvl = 0;
+        while(sortedQueue->front().level == depth){
+            lvlOrderNodes currNode = sortedQueue->front();
+            char type = currNode.node->getType();
+            for (int j = 0; j <= spacing * spacingFactor - nodeInLvl; j++){
+                cout << " ";
+            }
+            if (type == 'n'){
+                Num* numToken = dynamic_cast<Num*>(currNode.node);
+                cout << numToken->eval();
+            }
+            else{
+                cout << type;
+            }
+            sortedQueue->pop();
+            spacingFactor = 2;
+            nodeInLvl++;
+        }
+        depth++;
+        cout << endl;
+        
+        //int spacing = 80 / customPow(2, depth);  // Adjust spacing based on the depth
 
+        // if (type == '+' || type == '-' || type == '*' || type == '/') {
+        //     cout << setw(xorig) << type << endl;
+        //     drawTreeBin(t->left(), depth + 1, history + 'l', xorig - spacing);
+        //     drawTreeBin(t->right(), depth + 1, history + 'r', xorig + spacing);
+        // } else {
+        //     int padding = history.back() == 'l' ? -spacing / 2 : spacing / 2;
+        //     int position = xorig + padding;
+        //     for (int i = 0; i < position; ++i) {
+        //         cout << " ";
+        //     }
+        //     Num* numToken = dynamic_cast<Num*>(t);
+        //     if (numToken) {
+        //         cout << numToken->eval();
+        //     } else {
+        //         cout << type;
+        //     }
+        //     cout << std::endl;
+        // }
+    }
+    cout << endl;
+}	
     /*
      * Zeichnen des Baums und Anzeige des Grafikfensters
      */
