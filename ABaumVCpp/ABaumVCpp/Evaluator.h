@@ -18,13 +18,15 @@ class Evaluator
 {
 
 public:
-	/*
-     * Wertet einen arithmetischen Ausdruck aus. Dazu wird der Ausdruck erst in Tokens zerlegt.
-     * Diese werden dann in einen arithmetischen Bin�rbaum umgewandelt, der dann ausgewertet und 
-	 * grafisch dargestellt werden kann.
+     /*
+     * Wertet einen arithmetischen Ausdruck aus. 
+     * Dazu wird der Ausdruck erst in Tokens zerlegt.
+     * Diese werden dann in einen arithmetischen Binärbaum umgewandelt, 
+     * der dann ausgewertet und grafisch dargestellt werden kann.
      *
-     * Parameter: exp der arithmetische Ausdruck
-     * Parameter: mode: '<': Prefix, '|': Infix, '>': Postfix
+     * Parameter: 
+     * - exp: der arithmetische Ausdruck als String
+     * - mode: Modus des Ausdrucks ('<': Prefix, '|': Infix, '>': Postfix)
      */
     void evaluate(string exp, char mode) 
 	{
@@ -82,9 +84,11 @@ private:
 	/*
      * Ruft die entsprechende Parse-Methode (Prefix, Infix oder Postfix) auf.
      *
-     * Parameter: tok der tokenisierte arithmetische Ausdruck
-     * Parameter: mode '<': Prefix, '|': Infix, '>': Postfix
-     * Return:: der arithmetische Bin�rbaum
+     * Parameter: 
+     * - tok: der tokenisierte arithmetische Ausdruck (als Vektor von Tokens)
+     * - mode: Modus ('<': Prefix, '|': Infix, '>': Postfix)
+     * 
+     * Return: der arithmetische Binärbaum (als Token)
      */
 	Token* parse(vector<Token*> *tok, char mode) 
 	{
@@ -99,6 +103,15 @@ private:
         }
     }
 
+    /*
+     * Parse Methode für Prefix Notation.
+     *
+     * Parameter: 
+     * - i: Iterator für den Start des Token-Vektors
+     * - end: Iterator für das Ende des Token-Vektors
+     * 
+     * Return: der arithmetische Binärbaum (als Token)
+     */
     Token* parsePrefix(vector<Token*>::iterator& i, const std::vector<Token*>::iterator end) 
     {
         //TODO Terme mit mehreren Operationen nicht richtig geparsed
@@ -119,7 +132,15 @@ private:
         return res;
     }
 
-
+    /*
+     * Parse Methode für Postfix Notation.
+     *
+     * Parameter: 
+     * - i: Iterator für den Start des Token-Vektors
+     * - end: Iterator für das Ende des Token-Vektors
+     * 
+     * Return: der arithmetische Binärbaum (als Token)
+     */
     Token* parsePostfix(vector<Token*>::iterator i, vector<Token*>::iterator end)
 	{
 		stack<Token*> *s = new stack<Token*>();
@@ -144,6 +165,15 @@ private:
 		return s->top(); 
     }
 
+    /*
+     * Parse Methode für Infix Notation.
+     *
+     * Parameter: 
+     * - i: Iterator für den Start des Token-Vektors
+     * - end: Iterator für das Ende des Token-Vektors
+     * 
+     * Return: der arithmetische Binärbaum (als Token)
+     */
     Token* parseInfix(vector<Token*>::iterator i, vector<Token*>::iterator end) 
 	{
         stack<Token*> *s = new stack<Token*>();
@@ -171,6 +201,15 @@ private:
     }
     private:
 
+        /*
+     * Hilfsmethode, um zu prüfen, ob ein Element in einem Vektor enthalten ist.
+     *
+     * Parameter: 
+     * - listLike: Vektor der Elemente
+     * - ele: Element, nach dem gesucht wird
+     * 
+     * Return: true, wenn das Element enthalten ist, sonst false
+     */
 		template <class T> bool contains(std::vector<T> listLike, T ele) {
 			return std::find(std::begin(listLike), std::end(listLike), ele) != std::end(listLike); 
 		}
